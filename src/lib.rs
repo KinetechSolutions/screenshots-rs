@@ -8,11 +8,8 @@ pub use image::Image;
 mod darwin;
 #[cfg(target_os = "macos")]
 use darwin::*;
-
 #[cfg(target_os = "windows")]
-mod win32;
-#[cfg(target_os = "windows")]
-use win32::*;
+pub mod d3d;
 
 #[cfg(target_os = "linux")]
 mod linux;
@@ -41,9 +38,9 @@ impl Screen {
     Ok(Screen::new(&display_info))
   }
 
-  pub fn capture(&self) -> Result<Image> {
-    capture_screen(&self.display_info)
-  }
+  // pub fn capture(&self) -> Result<Image> {
+  //   capture_screen(&self.display_info)
+  // }
 
   /**
    * 截取指定区域
@@ -80,16 +77,17 @@ impl Screen {
       y2 = screen_y2;
     }
 
-    if x1 >= x2 || y1 >= y2 {
-      return Err(anyhow!("Area size is invalid"));
-    }
+    Err(anyhow!(""))
+    // if x1 >= x2 || y1 >= y2 {
+    //   return Err(anyhow!("Area size is invalid"));
+    // }
 
-    capture_screen_area(
-      &display_info,
-      x1 - display_info.x,
-      y1 - display_info.y,
-      (x2 - x1) as u32,
-      (y2 - y1) as u32,
-    )
+    // capture_screen_area(
+    //   &display_info,
+    //   x1 - display_info.x,
+    //   y1 - display_info.y,
+    //   (x2 - x1) as u32,
+    //   (y2 - y1) as u32,
+    // )
   }
 }
