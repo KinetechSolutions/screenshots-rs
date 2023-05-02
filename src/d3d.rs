@@ -16,7 +16,7 @@ use windows::{
   },
 };
 
-fn create_d3d_device_with_type(
+pub fn create_d3d_device_with_type(
   driver_type: D3D_DRIVER_TYPE,
   flags: D3D11_CREATE_DEVICE_FLAG,
   device: *mut Option<ID3D11Device>,
@@ -43,15 +43,15 @@ pub fn create_d3d_device() -> windows::core::Result<ID3D11Device> {
     D3D11_CREATE_DEVICE_BGRA_SUPPORT,
     &mut device,
   );
-  if let Err(error) = &result {
-    if error.code() == DXGI_ERROR_UNSUPPORTED {
-      result = create_d3d_device_with_type(
-        D3D_DRIVER_TYPE_WARP,
-        D3D11_CREATE_DEVICE_BGRA_SUPPORT,
-        &mut device,
-      );
-    }
-  }
+  // if let Err(error) = &result {
+  //   if error.code() == DXGI_ERROR_UNSUPPORTED {
+  //     result = create_d3d_device_with_type(
+  //       D3D_DRIVER_TYPE_WARP,
+  //       D3D11_CREATE_DEVICE_BGRA_SUPPORT,
+  //       device,
+  //     );
+  //   }
+  // }
   result?;
   Ok(device.unwrap())
 }

@@ -17,6 +17,7 @@ path = "src/bin/main.rs"
 png = "0.17.8"
 display-info = "0.4.1"
 anyhow = "1.0.70"
+futures = { version = "0.3", features = ["executor"] }
 
 [target.'cfg(target_os="macos")'.dependencies]
 core-graphics = "0.22.3"
